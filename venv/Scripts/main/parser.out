@@ -1,0 +1,145 @@
+Created by PLY version 3.11 (http://www.dabeaz.com/ply)
+
+Unused terminals:
+
+    PROJECT
+    RENAME
+    SELECT
+
+Grammar
+
+Rule 0     S' -> Atomstart
+Rule 1     Atomstart -> NAME LPAREN args RPAREN
+Rule 2     args -> args COMMA arg
+Rule 3     args -> arg
+Rule 4     arg -> NUMBER
+Rule 5     arg -> STRING
+Rule 6     arg -> NAME
+
+Terminals, with rules where they appear
+
+COMMA                : 2
+LPAREN               : 1
+NAME                 : 1 6
+NUMBER               : 4
+PROJECT              : 
+RENAME               : 
+RPAREN               : 1
+SELECT               : 
+STRING               : 5
+error                : 
+
+Nonterminals, with rules where they appear
+
+Atomstart            : 0
+arg                  : 2 3
+args                 : 1 2
+
+Parsing method: LALR
+
+state 0
+
+    (0) S' -> . Atomstart
+    (1) Atomstart -> . NAME LPAREN args RPAREN
+
+    NAME            shift and go to state 2
+
+    Atomstart                      shift and go to state 1
+
+state 1
+
+    (0) S' -> Atomstart .
+
+
+
+state 2
+
+    (1) Atomstart -> NAME . LPAREN args RPAREN
+
+    LPAREN          shift and go to state 3
+
+
+state 3
+
+    (1) Atomstart -> NAME LPAREN . args RPAREN
+    (2) args -> . args COMMA arg
+    (3) args -> . arg
+    (4) arg -> . NUMBER
+    (5) arg -> . STRING
+    (6) arg -> . NAME
+
+    NUMBER          shift and go to state 7
+    STRING          shift and go to state 8
+    NAME            shift and go to state 4
+
+    args                           shift and go to state 5
+    arg                            shift and go to state 6
+
+state 4
+
+    (6) arg -> NAME .
+
+    RPAREN          reduce using rule 6 (arg -> NAME .)
+    COMMA           reduce using rule 6 (arg -> NAME .)
+
+
+state 5
+
+    (1) Atomstart -> NAME LPAREN args . RPAREN
+    (2) args -> args . COMMA arg
+
+    RPAREN          shift and go to state 9
+    COMMA           shift and go to state 10
+
+
+state 6
+
+    (3) args -> arg .
+
+    RPAREN          reduce using rule 3 (args -> arg .)
+    COMMA           reduce using rule 3 (args -> arg .)
+
+
+state 7
+
+    (4) arg -> NUMBER .
+
+    RPAREN          reduce using rule 4 (arg -> NUMBER .)
+    COMMA           reduce using rule 4 (arg -> NUMBER .)
+
+
+state 8
+
+    (5) arg -> STRING .
+
+    RPAREN          reduce using rule 5 (arg -> STRING .)
+    COMMA           reduce using rule 5 (arg -> STRING .)
+
+
+state 9
+
+    (1) Atomstart -> NAME LPAREN args RPAREN .
+
+    $end            reduce using rule 1 (Atomstart -> NAME LPAREN args RPAREN .)
+
+
+state 10
+
+    (2) args -> args COMMA . arg
+    (4) arg -> . NUMBER
+    (5) arg -> . STRING
+    (6) arg -> . NAME
+
+    NUMBER          shift and go to state 7
+    STRING          shift and go to state 8
+    NAME            shift and go to state 4
+
+    arg                            shift and go to state 11
+
+state 11
+
+    (2) args -> args COMMA arg .
+
+    RPAREN          reduce using rule 2 (args -> args COMMA arg .)
+    COMMA           reduce using rule 2 (args -> args COMMA arg .)
+
